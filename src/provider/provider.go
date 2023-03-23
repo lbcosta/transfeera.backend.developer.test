@@ -3,10 +3,10 @@ package provider
 import (
 	"context"
 	"go.uber.org/fx"
-	"transfeera.backend.developer.test/api/handlers"
-	repositories "transfeera.backend.developer.test/api/repositories/adapters"
-	"transfeera.backend.developer.test/api/services"
-	"transfeera.backend.developer.test/config"
+	"transfeera.backend.developer.test/src/api/handlers"
+	repositories "transfeera.backend.developer.test/src/api/repositories/adapters"
+	"transfeera.backend.developer.test/src/api/services"
+	"transfeera.backend.developer.test/src/config"
 )
 
 type AppOptions struct {

@@ -1,6 +1,8 @@
 package response
 
-import "transfeera.backend.developer.test/api/domain"
+import (
+	"transfeera.backend.developer.test/src/api/domain"
+)
 
 type GetBeneficiariesResponse struct {
 	Status   string               `json:"status"`

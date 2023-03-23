@@ -11,11 +11,18 @@ type Metadata struct {
 
 func NewMetadata(totalCount int, page int, perPage int) *Metadata {
 	actualPerPage := int(math.Min(float64(perPage), float64(totalCount)))
+	totalPages := 1
+
+	if actualPerPage == 0 {
+		totalPages = 0
+	} else {
+		totalPages = int(math.Ceil(float64(totalCount) / float64(actualPerPage)))
+	}
 
 	return &Metadata{
 		TotalCount: totalCount,
 		Page:       page,
 		PerPage:    actualPerPage,
-		TotalPages: totalCount / actualPerPage,
+		TotalPages: totalPages,
 	}
 }

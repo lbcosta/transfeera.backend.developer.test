@@ -4,9 +4,9 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: transfeera
-      POSTGRES_PASSWORD: transfeera.t3st
-      POSTGRES_DB: transfeera
+      - POSTGRES_USER=transfeera
+      - POSTGRES_PASSWORD=transfeera.t3st
+      - POSTGRES_DB=transfeera
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:
@@ -19,10 +19,10 @@ services:
     depends_on:
       - db
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: myuser
-      DB_PASSWORD: mypassword
-      DB_NAME: mydb
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=transfeera
+      - POSTGRES_PASSWORD=transfeera.t3st
+      - POSTGRES_DB=transfeera
 volumes:
   db-data:

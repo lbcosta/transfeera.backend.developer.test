@@ -1,9 +1,6 @@
-package model
-
-import "gorm.io/gorm"
+package domain
 
 type Beneficiary struct {
-	gorm.Model
 	Status         string `json:"status"`
 	Name           string `json:"name"`
 	DocumentNumber string `json:"document_number"`

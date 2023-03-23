@@ -6,6 +6,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"
+	"transfeera.backend.developer.test/src/api/model"
 )
 
 type PostgresDatabase struct {
@@ -13,7 +14,7 @@ type PostgresDatabase struct {
 }
 
 func NewPostgresDatabase() PostgresDatabase {
-	return PostgresDatabase{
+	connection := PostgresDatabase{
 		DSN: fmt.Sprintf(
 			"user=%s password=%s dbname=%s host=%s port=%s timezone=%s",
 			os.Getenv("POSTGRES_USER"),
@@ -23,6 +24,13 @@ func NewPostgresDatabase() PostgresDatabase {
 			os.Getenv("POSTGRES_PORT"),
 			"America/Sao_Paulo"),
 	}
+
+	db, err := gorm.Open(postgres.Open(connection.DSN), &gorm.Config{})
+	if err == nil {
+		db.AutoMigrate(&model.Beneficiary{})
+	}
+
+	return connection
 }
 
 func (p PostgresDatabase) Connect() (*gorm.DB, error) {

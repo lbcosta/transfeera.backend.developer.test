@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"transfeera.backend.developer.test/api/handlers"
+	"transfeera.backend.developer.test/src/api/handlers"
 )
 
 type Router struct {

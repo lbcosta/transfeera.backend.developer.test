@@ -1,13 +1,13 @@
 package main
 
 import (
-	"transfeera.backend.developer.test/api"
-	"transfeera.backend.developer.test/provider"
+	"transfeera.backend.developer.test/src/api"
+	"transfeera.backend.developer.test/src/provider"
 )
 
 func main() {
 	app := provider.NewApp(provider.AppOptions{
-		Port:   ":3000",
+		Port:   ":8080",
 		Router: api.NewRouter,
 	})
 

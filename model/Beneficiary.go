@@ -1,9 +1,9 @@
-package domain
+package model
 
-//type DocumentNumber struct {
-//}
+import "gorm.io/gorm"
 
 type Beneficiary struct {
+	gorm.Model
 	Status         string `json:"status"`
 	Name           string `json:"name"`
 	DocumentNumber string `json:"document_number"`

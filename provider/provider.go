@@ -6,6 +6,7 @@ import (
 	"transfeera.backend.developer.test/api/handlers"
 	repositories "transfeera.backend.developer.test/api/repositories/adapters"
 	"transfeera.backend.developer.test/api/services"
+	"transfeera.backend.developer.test/config"
 )
 
 type AppOptions struct {
@@ -44,5 +45,6 @@ func providers() []interface{} {
 		handlers.NewDeleteBeneficiariesHandler,
 		services.NewGetBeneficiariesService,
 		repositories.NewBeneficiaryRepository,
+		config.NewPostgresDatabase,
 	}
 }

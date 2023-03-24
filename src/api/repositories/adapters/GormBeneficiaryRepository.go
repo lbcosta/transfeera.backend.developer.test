@@ -37,12 +37,24 @@ func (r GormBeneficiaryRepository) Get(filter string) (model.Beneficiaries, erro
 	return beneficiaries, nil
 }
 
-func (r GormBeneficiaryRepository) Create(beneficiary domain.Beneficiary) (model.Beneficiary, error) {
-	//TODO implement me
-	panic("implement me")
+func (r GormBeneficiaryRepository) Create(data domain.Beneficiary) (*model.Beneficiary, error) {
+	database, err := r.databaseConnection.Connect()
+	if err != nil {
+		return nil, err
+	}
+	defer r.databaseConnection.Disconnect(database)
+
+	beneficiary := model.Beneficiary{}.FromDomain(data)
+
+	err = database.Create(&beneficiary).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &beneficiary, nil
 }
 
-func (r GormBeneficiaryRepository) Update(beneficiary domain.Beneficiary) (model.Beneficiary, error) {
+func (r GormBeneficiaryRepository) Update(data domain.Beneficiary) (*model.Beneficiary, error) {
 	//TODO implement me
 	panic("implement me")
 }

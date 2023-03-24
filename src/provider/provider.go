@@ -45,6 +45,8 @@ func providers() []interface{} {
 		handlers.NewDeleteBeneficiariesHandler,
 		services.NewGetBeneficiariesService,
 		services.NewDeleteBeneficiariesService,
+		services.NewCreateBeneficiaryService,
+		services.NewGetBankInfoService,
 		repositories.NewBeneficiaryRepository,
 		config.NewPostgresDatabase,
 	}

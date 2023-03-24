@@ -5,6 +5,8 @@ import (
 	"transfeera.backend.developer.test/src/api/domain"
 )
 
+type Beneficiaries []Beneficiary
+
 type Beneficiary struct {
 	gorm.Model
 	Status         string `json:"status"`
@@ -26,13 +28,27 @@ func (b Beneficiary) ToDomain() domain.Beneficiary {
 		Email:          b.Email,
 		PixKeyType:     b.PixKeyType,
 		PixKeyValue:    b.PixKeyValue,
+		BankInfo: domain.BankInfo{
+			Bank:    b.Bank,
+			Agency:  b.Agency,
+			Account: b.Account,
+		},
+	}
+}
+
+func (Beneficiary) FromDomain(b domain.Beneficiary) Beneficiary {
+	return Beneficiary{
+		Status:         b.Status,
+		Name:           b.Name,
+		DocumentNumber: b.DocumentNumber,
+		Email:          b.Email,
+		PixKeyType:     b.PixKeyType,
+		PixKeyValue:    b.PixKeyValue,
 		Bank:           b.Bank,
 		Agency:         b.Agency,
 		Account:        b.Account,
 	}
 }
-
-type Beneficiaries []Beneficiary
 
 func (b Beneficiaries) ToDomain() []domain.Beneficiary {
 	beneficiaries := make([]domain.Beneficiary, 0)
@@ -44,9 +60,11 @@ func (b Beneficiaries) ToDomain() []domain.Beneficiary {
 			Email:          beneficiary.Email,
 			PixKeyType:     beneficiary.PixKeyType,
 			PixKeyValue:    beneficiary.PixKeyValue,
-			Bank:           beneficiary.Bank,
-			Agency:         beneficiary.Agency,
-			Account:        beneficiary.Account,
+			BankInfo: domain.BankInfo{
+				Bank:    beneficiary.Bank,
+				Agency:  beneficiary.Agency,
+				Account: beneficiary.Account,
+			},
 		})
 	}
 	return beneficiaries

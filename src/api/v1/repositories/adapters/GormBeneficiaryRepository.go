@@ -21,6 +21,22 @@ func NewBeneficiaryRepository(databaseConnection config.PostgresDatabase) reposi
 	return GormBeneficiaryRepository{databaseConnection: databaseConnection}
 }
 
+func (r GormBeneficiaryRepository) GetByID(id uint) (*model.Beneficiary, error) {
+	database, err := r.databaseConnection.Connect()
+	if err != nil {
+		return nil, err
+	}
+	defer r.databaseConnection.Disconnect(database)
+
+	var beneficiary model.Beneficiary
+	err = database.First(&beneficiary, id).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &beneficiary, nil
+}
+
 func (r GormBeneficiaryRepository) Get(filter string) (model.Beneficiaries, error) {
 	database, err := r.databaseConnection.Connect()
 	if err != nil {
@@ -54,9 +70,19 @@ func (r GormBeneficiaryRepository) Create(data domain.Beneficiary) (*model.Benef
 	return &beneficiary, nil
 }
 
-func (r GormBeneficiaryRepository) Update(data domain.Beneficiary) (*model.Beneficiary, error) {
-	//TODO implement me
-	panic("implement me")
+func (r GormBeneficiaryRepository) Update(data *model.Beneficiary) (*model.Beneficiary, error) {
+	database, err := r.databaseConnection.Connect()
+	if err != nil {
+		return nil, err
+	}
+	defer r.databaseConnection.Disconnect(database)
+
+	err = database.Save(data).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 func (r GormBeneficiaryRepository) Delete(ids []uint) error {

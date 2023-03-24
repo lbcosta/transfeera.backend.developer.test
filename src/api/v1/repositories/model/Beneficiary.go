@@ -3,6 +3,7 @@ package model
 import (
 	"gorm.io/gorm"
 	"transfeera.backend.developer.test/src/api/v1/domain"
+	"transfeera.backend.developer.test/src/util"
 )
 
 type Beneficiaries []Beneficiary
@@ -18,6 +19,10 @@ type Beneficiary struct {
 	Bank           string `json:"bank"`
 	Agency         string `json:"agency"`
 	Account        string `json:"account"`
+}
+
+func (b Beneficiary) IsPixValid() bool {
+	return util.ValidatePix(b.PixKeyType, b.PixKeyValue)
 }
 
 func (b Beneficiary) ToDomain() domain.Beneficiary {

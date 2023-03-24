@@ -1,16 +1,10 @@
 package handlers
 
 import (
-	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"transfeera.backend.developer.test/src/api/v1/handlers/request"
 	"transfeera.backend.developer.test/src/api/v1/handlers/response"
 	"transfeera.backend.developer.test/src/api/v1/services"
-)
-
-const (
-	PixKeyValidator         = "validate_pix_key_value"
-	DocumentNumberValidator = "validate_document_number"
 )
 
 type CreateBeneficiaryHandler struct {
@@ -34,13 +28,12 @@ func (h CreateBeneficiaryHandler) Handle(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(errorResponse)
 	}
 
-	validate := validator.New()
-	validate.RegisterValidation(PixKeyValidator, request.ValidatePixKeyValue)
-	validate.RegisterValidation(DocumentNumberValidator, request.ValidateDocumentNumber)
-
-	err := validate.Struct(req)
-	if err != nil {
-		errorResponse := response.ErrorResponse{}.FromValidation(err.(validator.ValidationErrors))
+	if err := req.Validate(); err != nil {
+		errorResponse := response.ErrorResponse{
+			Status: response.StatusInvalidInput,
+			Code:   fiber.StatusBadRequest,
+			Error:  err.Error(),
+		}
 		return c.Status(fiber.StatusBadRequest).JSON(errorResponse)
 	}
 

@@ -6,8 +6,9 @@ import (
 )
 
 type BeneficiaryRepository interface {
+	GetByID(id uint) (*model.Beneficiary, error)
 	Get(filter string) (model.Beneficiaries, error)
 	Create(data domain.Beneficiary) (*model.Beneficiary, error)
-	Update(data domain.Beneficiary) (*model.Beneficiary, error)
+	Update(data *model.Beneficiary) (*model.Beneficiary, error)
 	Delete(ids []uint) error
 }

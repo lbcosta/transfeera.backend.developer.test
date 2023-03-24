@@ -5,8 +5,8 @@ import (
 	"gorm.io/gorm"
 	"strings"
 	"transfeera.backend.developer.test/src/api/domain"
-	"transfeera.backend.developer.test/src/api/model"
 	"transfeera.backend.developer.test/src/api/repositories"
+	"transfeera.backend.developer.test/src/api/repositories/model"
 	"transfeera.backend.developer.test/src/api/repositories/queries"
 	"transfeera.backend.developer.test/src/config"
 )

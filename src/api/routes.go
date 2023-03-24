@@ -19,7 +19,7 @@ func NewRouter(createBeneficiary handlers.CreateBeneficiaryHandler, deleteBenefi
 func (r Router) Start(port string) error {
 	app := fiber.New()
 
-	v1 := app.Group("/v1/beneficiaries")
+	v1 := app.Group("api/v1/beneficiaries")
 	v1.Get("/", r.GetBeneficiaries.Handle)
 	v1.Post("/", r.CreateBeneficiary.Handle)
 	v1.Patch("/:id", r.UpdateBeneficiary.Handle)

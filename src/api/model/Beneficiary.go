@@ -35,7 +35,7 @@ func (b Beneficiary) ToDomain() domain.Beneficiary {
 type Beneficiaries []Beneficiary
 
 func (b Beneficiaries) ToDomain() []domain.Beneficiary {
-	var beneficiaries []domain.Beneficiary
+	beneficiaries := make([]domain.Beneficiary, 0)
 	for _, beneficiary := range b {
 		beneficiaries = append(beneficiaries, domain.Beneficiary{
 			Status:         beneficiary.Status,

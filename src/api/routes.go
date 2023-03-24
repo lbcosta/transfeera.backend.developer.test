@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"transfeera.backend.developer.test/src/api/handlers"
 )
 
@@ -18,6 +19,8 @@ func NewRouter(createBeneficiary handlers.CreateBeneficiaryHandler, deleteBenefi
 
 func (r Router) Start(port string) error {
 	app := fiber.New()
+
+	app.Use(recover.New())
 
 	v1 := app.Group("api/v1/beneficiaries")
 	v1.Get("/", r.GetBeneficiaries.Handle)

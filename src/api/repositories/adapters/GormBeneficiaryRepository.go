@@ -1,6 +1,8 @@
 package adapters
 
 import (
+	"errors"
+	"gorm.io/gorm"
 	"strings"
 	"transfeera.backend.developer.test/src/api/domain"
 	"transfeera.backend.developer.test/src/api/model"
@@ -8,6 +10,8 @@ import (
 	"transfeera.backend.developer.test/src/api/repositories/queries"
 	"transfeera.backend.developer.test/src/config"
 )
+
+const ResourceNotFoundErr = "resource not found"
 
 type GormBeneficiaryRepository struct {
 	databaseConnection config.PostgresDatabase
@@ -43,7 +47,30 @@ func (r GormBeneficiaryRepository) Update(beneficiary domain.Beneficiary) (model
 	panic("implement me")
 }
 
-func (r GormBeneficiaryRepository) Delete(id int) error {
-	//TODO implement me
-	panic("implement me")
+func (r GormBeneficiaryRepository) Delete(ids []uint) error {
+	database, err := r.databaseConnection.Connect()
+	if err != nil {
+		return err
+	}
+	defer r.databaseConnection.Disconnect(database)
+
+	err = database.Transaction(func(tx *gorm.DB) error {
+		var beneficiaries []model.Beneficiary
+		result := tx.Find(&beneficiaries, ids)
+		if result.RowsAffected == 0 {
+			return errors.New(ResourceNotFoundErr)
+		}
+
+		err = tx.Delete(&model.Beneficiary{}, ids).Error
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

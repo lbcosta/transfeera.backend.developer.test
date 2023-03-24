@@ -9,5 +9,5 @@ type BeneficiaryRepository interface {
 	Get(filter string) (model.Beneficiaries, error)
 	Create(beneficiary domain.Beneficiary) (model.Beneficiary, error)
 	Update(beneficiary domain.Beneficiary) (model.Beneficiary, error)
-	Delete(id int) error
+	Delete(ids []uint) error
 }

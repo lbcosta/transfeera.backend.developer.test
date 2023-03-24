@@ -3,7 +3,7 @@ package handlers
 import (
 	"github.com/gofiber/fiber/v2"
 	"transfeera.backend.developer.test/src/api/v1/handlers/request"
-	response2 "transfeera.backend.developer.test/src/api/v1/handlers/response"
+	"transfeera.backend.developer.test/src/api/v1/handlers/response"
 	"transfeera.backend.developer.test/src/api/v1/services"
 )
 
@@ -19,8 +19,8 @@ func (h DeleteBeneficiariesHandler) Handle(c *fiber.Ctx) error {
 	var req request.DeleteBeneficiariesRequest
 
 	if err := c.BodyParser(&req); err != nil {
-		errorResponse := response2.ErrorResponse{
-			Status: response2.StatusInvalidInput,
+		errorResponse := response.ErrorResponse{
+			Status: response.StatusInvalidInput,
 			Code:   fiber.StatusBadRequest,
 			Error:  err.Error(),
 		}
@@ -29,8 +29,8 @@ func (h DeleteBeneficiariesHandler) Handle(c *fiber.Ctx) error {
 
 	err := h.deleteBeneficiaries.Call(req.Ids)
 	if err != nil {
-		errorResponse := response2.ErrorResponse{
-			Status: response2.StatusError,
+		errorResponse := response.ErrorResponse{
+			Status: response.StatusError,
 			Code:   fiber.StatusUnprocessableEntity,
 			Error:  err.Error(),
 		}

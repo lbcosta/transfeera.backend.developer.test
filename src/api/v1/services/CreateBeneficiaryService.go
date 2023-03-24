@@ -1,9 +1,9 @@
 package services
 
 import (
-	"transfeera.backend.developer.test/src/api/domain"
-	"transfeera.backend.developer.test/src/api/handlers/request"
-	"transfeera.backend.developer.test/src/api/repositories"
+	domain2 "transfeera.backend.developer.test/src/api/v1/domain"
+	"transfeera.backend.developer.test/src/api/v1/handlers/request"
+	"transfeera.backend.developer.test/src/api/v1/repositories"
 )
 
 type CreateBeneficiaryService struct {
@@ -14,9 +14,9 @@ func NewCreateBeneficiaryService(beneficiaryRepository repositories.BeneficiaryR
 	return CreateBeneficiaryService{beneficiaryRepository: beneficiaryRepository}
 }
 
-func (s CreateBeneficiaryService) Call(data request.CreateBeneficiaryRequest, bankInfo domain.BankInfo) (*domain.Beneficiary, error) {
-	beneficiaryData := domain.Beneficiary{
-		Status:         domain.StatusRascunho,
+func (s CreateBeneficiaryService) Call(data request.CreateBeneficiaryRequest, bankInfo domain2.BankInfo) (*domain2.Beneficiary, error) {
+	beneficiaryData := domain2.Beneficiary{
+		Status:         domain2.StatusRascunho,
 		Name:           data.Name,
 		DocumentNumber: data.DocumentNumber,
 		Email:          data.Email,

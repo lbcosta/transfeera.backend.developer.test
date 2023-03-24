@@ -1,8 +1,8 @@
 package services
 
 import (
-	"transfeera.backend.developer.test/src/api/domain"
-	"transfeera.backend.developer.test/src/api/repositories"
+	"transfeera.backend.developer.test/src/api/v1/domain"
+	"transfeera.backend.developer.test/src/api/v1/repositories"
 )
 
 type BeneficiariesData struct {

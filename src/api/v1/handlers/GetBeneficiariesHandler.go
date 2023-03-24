@@ -3,8 +3,8 @@ package handlers
 import (
 	"github.com/gofiber/fiber/v2"
 	"math"
-	"transfeera.backend.developer.test/src/api/handlers/response"
-	"transfeera.backend.developer.test/src/api/services"
+	response2 "transfeera.backend.developer.test/src/api/v1/handlers/response"
+	"transfeera.backend.developer.test/src/api/v1/services"
 )
 
 const PerPage = 10
@@ -24,27 +24,27 @@ func (h GetBeneficiariesHandler) Handle(c *fiber.Ctx) error {
 
 	beneficiaries, err := h.getBeneficiaries.Call(filter, page, PerPage)
 	if err != nil {
-		resError := response.ErrorResponse{
-			Status: response.StatusError,
+		resError := response2.ErrorResponse{
+			Status: response2.StatusError,
 			Code:   fiber.StatusUnprocessableEntity,
 			Error:  err.Error(),
 		}
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(resError)
 	}
 
-	metadata := response.NewMetadata(beneficiaries.TotalCount, page, PerPage)
+	metadata := response2.NewMetadata(beneficiaries.TotalCount, page, PerPage)
 
 	if beneficiaries.TotalCount > 0 && page > metadata.TotalPages {
-		errorResponse := response.ErrorResponse{
-			Status: response.StatusInvalidInput,
+		errorResponse := response2.ErrorResponse{
+			Status: response2.StatusInvalidInput,
 			Code:   fiber.StatusBadRequest,
 			Error:  "The requested page does not exist.",
 		}
 		return c.Status(fiber.StatusBadRequest).JSON(errorResponse)
 	}
 
-	res := response.GetBeneficiariesResponse{
-		Status:   response.StatusSuccess,
+	res := response2.GetBeneficiariesResponse{
+		Status:   response2.StatusSuccess,
 		Code:     fiber.StatusOK,
 		Metadata: metadata,
 		Data:     beneficiaries.Data,

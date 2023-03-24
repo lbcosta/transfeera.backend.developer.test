@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"transfeera.backend.developer.test/src/api/domain"
-	"transfeera.backend.developer.test/src/api/repositories/model"
+	"transfeera.backend.developer.test/src/api/v1/domain"
+	"transfeera.backend.developer.test/src/api/v1/repositories/model"
 )
 
 type BeneficiaryRepository interface {

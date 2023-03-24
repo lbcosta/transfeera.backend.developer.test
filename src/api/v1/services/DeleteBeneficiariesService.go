@@ -1,7 +1,7 @@
 package services
 
 import (
-	"transfeera.backend.developer.test/src/api/repositories"
+	"transfeera.backend.developer.test/src/api/v1/repositories"
 )
 
 type DeleteBeneficiariesService struct {

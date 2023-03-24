@@ -1,7 +1,7 @@
 package response
 
 import (
-	"transfeera.backend.developer.test/src/api/domain"
+	"transfeera.backend.developer.test/src/api/v1/domain"
 )
 
 type GetBeneficiariesResponse struct {

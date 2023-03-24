@@ -6,7 +6,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"
-	"transfeera.backend.developer.test/src/api/repositories/model"
+	"transfeera.backend.developer.test/src/api/v1/repositories/model"
 )
 
 type PostgresDatabase struct {

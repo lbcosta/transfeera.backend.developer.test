@@ -4,10 +4,10 @@ import (
 	"errors"
 	"gorm.io/gorm"
 	"strings"
-	"transfeera.backend.developer.test/src/api/domain"
-	"transfeera.backend.developer.test/src/api/repositories"
-	"transfeera.backend.developer.test/src/api/repositories/model"
-	"transfeera.backend.developer.test/src/api/repositories/queries"
+	"transfeera.backend.developer.test/src/api/v1/domain"
+	"transfeera.backend.developer.test/src/api/v1/repositories"
+	"transfeera.backend.developer.test/src/api/v1/repositories/model"
+	"transfeera.backend.developer.test/src/api/v1/repositories/queries"
 	"transfeera.backend.developer.test/src/config"
 )
 

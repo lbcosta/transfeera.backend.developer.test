@@ -1,7 +1,7 @@
 package services
 
 import (
-	"transfeera.backend.developer.test/src/api/domain"
+	"transfeera.backend.developer.test/src/api/v1/domain"
 )
 
 type GetBankInfoService struct{}

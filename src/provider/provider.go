@@ -3,9 +3,9 @@ package provider
 import (
 	"context"
 	"go.uber.org/fx"
-	"transfeera.backend.developer.test/src/api/handlers"
-	repositories "transfeera.backend.developer.test/src/api/repositories/adapters"
-	"transfeera.backend.developer.test/src/api/services"
+	handlers2 "transfeera.backend.developer.test/src/api/v1/handlers"
+	repositories "transfeera.backend.developer.test/src/api/v1/repositories/adapters"
+	services2 "transfeera.backend.developer.test/src/api/v1/services"
 	"transfeera.backend.developer.test/src/config"
 )
 
@@ -39,14 +39,14 @@ func NewApp(options AppOptions) *fx.App {
 
 func providers() []interface{} {
 	return []interface{}{
-		handlers.NewCreateBeneficiaryHandler,
-		handlers.NewGetBeneficiariesHandler,
-		handlers.NewUpdateBeneficiaryHandler,
-		handlers.NewDeleteBeneficiariesHandler,
-		services.NewGetBeneficiariesService,
-		services.NewDeleteBeneficiariesService,
-		services.NewCreateBeneficiaryService,
-		services.NewGetBankInfoService,
+		handlers2.NewCreateBeneficiaryHandler,
+		handlers2.NewGetBeneficiariesHandler,
+		handlers2.NewUpdateBeneficiaryHandler,
+		handlers2.NewDeleteBeneficiariesHandler,
+		services2.NewGetBeneficiariesService,
+		services2.NewDeleteBeneficiariesService,
+		services2.NewCreateBeneficiaryService,
+		services2.NewGetBankInfoService,
 		repositories.NewBeneficiaryRepository,
 		config.NewPostgresDatabase,
 	}

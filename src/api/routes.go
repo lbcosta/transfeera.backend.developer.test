@@ -3,17 +3,17 @@ package api
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"transfeera.backend.developer.test/src/api/handlers"
+	handlers2 "transfeera.backend.developer.test/src/api/v1/handlers"
 )
 
 type Router struct {
-	CreateBeneficiary   handlers.CreateBeneficiaryHandler
-	DeleteBeneficiaries handlers.DeleteBeneficiariesHandler
-	GetBeneficiaries    handlers.GetBeneficiariesHandler
-	UpdateBeneficiary   handlers.UpdateBeneficiaryHandler
+	CreateBeneficiary   handlers2.CreateBeneficiaryHandler
+	DeleteBeneficiaries handlers2.DeleteBeneficiariesHandler
+	GetBeneficiaries    handlers2.GetBeneficiariesHandler
+	UpdateBeneficiary   handlers2.UpdateBeneficiaryHandler
 }
 
-func NewRouter(createBeneficiary handlers.CreateBeneficiaryHandler, deleteBeneficiaries handlers.DeleteBeneficiariesHandler, getBeneficiaries handlers.GetBeneficiariesHandler, updateBeneficiary handlers.UpdateBeneficiaryHandler) Router {
+func NewRouter(createBeneficiary handlers2.CreateBeneficiaryHandler, deleteBeneficiaries handlers2.DeleteBeneficiariesHandler, getBeneficiaries handlers2.GetBeneficiariesHandler, updateBeneficiary handlers2.UpdateBeneficiaryHandler) Router {
 	return Router{CreateBeneficiary: createBeneficiary, DeleteBeneficiaries: deleteBeneficiaries, GetBeneficiaries: getBeneficiaries, UpdateBeneficiary: updateBeneficiary}
 }
 

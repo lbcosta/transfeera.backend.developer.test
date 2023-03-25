@@ -18,32 +18,25 @@ import (
 	"transfeera.backend.developer.test/src/api/v1/repositories/model"
 	"transfeera.backend.developer.test/src/api/v1/services"
 	"transfeera.backend.developer.test/src/config"
-	mocks "transfeera.backend.developer.test/src/mocks/src/api/v1/repositories"
 )
 
 type DeleteBeneficiaryTestSuite struct {
 	suite.Suite
-	SomeError                   error
-	App                         *fiber.App
-	PostgresDatabase            config.PostgresDatabase
-	mockedBeneficiaryRepository *mocks.BeneficiaryRepository
-	domainBeneficiary           *domain.Beneficiary
+	SomeError         error
+	App               *fiber.App
+	PostgresDatabase  config.PostgresDatabase
+	domainBeneficiary *domain.Beneficiary
 }
 
 func (suite *DeleteBeneficiaryTestSuite) SetupTest() {
 	postgresDatabase := config.NewPostgresDatabase()
 	deleteBeneficiaryHandler := NewDeleteBeneficiariesHandler(services.NewDeleteBeneficiariesService(repositories.NewBeneficiaryRepository(postgresDatabase)))
 
-	mockedBeneficiaryRepository := new(mocks.BeneficiaryRepository)
-	mockedDeleteBeneficiariesHandler := NewDeleteBeneficiariesHandler(services.NewDeleteBeneficiariesService(mockedBeneficiaryRepository))
-
 	app := fiber.New()
 	app.Delete("/", deleteBeneficiaryHandler.Handle)
-	app.Delete("/mock", mockedDeleteBeneficiariesHandler.Handle)
 
 	suite.App = app
 	suite.PostgresDatabase = postgresDatabase
-	suite.mockedBeneficiaryRepository = mockedBeneficiaryRepository
 	suite.SomeError = errors.New("some error")
 }
 

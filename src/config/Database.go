@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 	"os"
 	"transfeera.backend.developer.test/src/api/v1/repositories/model"
 )
@@ -34,7 +35,7 @@ func NewPostgresDatabase() PostgresDatabase {
 }
 
 func (p PostgresDatabase) Connect() (*gorm.DB, error) {
-	db, err := gorm.Open(postgres.Open(p.DSN), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(p.DSN), &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)})
 	if err != nil {
 		return nil, errors.New("failed to connect to database")
 	}

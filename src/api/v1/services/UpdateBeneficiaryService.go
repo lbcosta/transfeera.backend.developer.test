@@ -7,7 +7,10 @@ import (
 	"transfeera.backend.developer.test/src/api/v1/repositories"
 )
 
-const InvalidPixErr = "pix key type and pix key value do not match"
+const (
+	InvalidPixErr      = "pix key type and pix key value do not match"
+	ShouldNotUpdateErr = "beneficiaries with Status=Validado should not update some fields"
+)
 
 type UpdateBeneficiaryService struct {
 	beneficiaryRepository repositories.BeneficiaryRepository
@@ -23,13 +26,17 @@ func (s UpdateBeneficiaryService) Call(id int, data request.UpdateBeneficiaryReq
 		return nil, err
 	}
 
-	beneficiary.Email = updateNonEmpty(beneficiary.Email, data.Email)
+	if !beneficiary.ShouldUpdate(data.Name, data.DocumentNumber, data.PixKeyType, data.PixKeyValue) {
+		return nil, errors.New(ShouldNotUpdateErr)
+	}
+
+	beneficiary.Email = updateIfNonZero(beneficiary.Email, data.Email)
 
 	if beneficiary.Status == domain.StatusRascunho {
-		beneficiary.Name = updateNonEmpty(beneficiary.Name, data.Name)
-		beneficiary.DocumentNumber = updateNonEmpty(beneficiary.DocumentNumber, data.DocumentNumber)
-		beneficiary.PixKeyType = updateNonEmpty(beneficiary.PixKeyType, data.PixKeyType)
-		beneficiary.PixKeyValue = updateNonEmpty(beneficiary.PixKeyValue, data.PixKeyValue)
+		beneficiary.Name = updateIfNonZero(beneficiary.Name, data.Name)
+		beneficiary.DocumentNumber = updateIfNonZero(beneficiary.DocumentNumber, data.DocumentNumber)
+		beneficiary.PixKeyType = updateIfNonZero(beneficiary.PixKeyType, data.PixKeyType)
+		beneficiary.PixKeyValue = updateIfNonZero(beneficiary.PixKeyValue, data.PixKeyValue)
 
 		if data.IsPixUpdated() && !beneficiary.IsPixValid() {
 			return nil, errors.New(InvalidPixErr)
@@ -46,7 +53,7 @@ func (s UpdateBeneficiaryService) Call(id int, data request.UpdateBeneficiaryReq
 	return &domainUpdatedBeneficiary, nil
 }
 
-func updateNonEmpty(prev, newValue string) string {
+func updateIfNonZero(prev, newValue string) string {
 	if newValue == "" {
 		return prev
 	}

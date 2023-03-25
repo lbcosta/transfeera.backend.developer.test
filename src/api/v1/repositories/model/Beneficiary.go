@@ -25,6 +25,14 @@ func (b Beneficiary) IsPixValid() bool {
 	return util.ValidatePix(b.PixKeyType, b.PixKeyValue)
 }
 
+func (b Beneficiary) ShouldUpdate(name, documentNumber, pixKeyType, pixKeyValue string) bool {
+	return !(b.Status == domain.StatusValidado &&
+		(name != b.Name ||
+			documentNumber != b.DocumentNumber ||
+			pixKeyType != b.PixKeyType ||
+			pixKeyValue != b.PixKeyValue))
+}
+
 func (b Beneficiary) ToDomain() domain.Beneficiary {
 	return domain.Beneficiary{
 		Status:         b.Status,

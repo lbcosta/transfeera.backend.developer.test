@@ -77,7 +77,6 @@ func (suite *CreateBeneficiaryTestSuite) TestCreateBeneficiary_Error() {
 	assert.Error(suite.T(), err)
 }
 
-
 func TestCreateBeneficiaryTestSuite(t *testing.T) {
 	suite.Run(t, new(CreateBeneficiaryTestSuite))
 }

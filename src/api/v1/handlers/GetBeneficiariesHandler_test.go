@@ -55,8 +55,8 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_Success() {
 	}
 
 	assert.Equal(suite.T(), fiber.StatusOK, resp.StatusCode)
-	assert.Equal(suite.T(), getBeneficiariesResponse.Metadata.TotalCount, 37)
-	assert.Equal(suite.T(), getBeneficiariesResponse.Metadata.TotalPages, 4)
+	assert.Equal(suite.T(), 37, getBeneficiariesResponse.Metadata.TotalCount)
+	assert.Equal(suite.T(), 4, getBeneficiariesResponse.Metadata.TotalPages)
 }
 
 func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByStatus() {
@@ -75,8 +75,8 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByStatus() {
 	}
 
 	assert.Equal(suite.T(), fiber.StatusOK, resp.StatusCode)
-	assert.Equal(suite.T(), len(getBeneficiariesResponse.Data), 10)
-	assert.Equal(suite.T(), getBeneficiariesResponse.Metadata.TotalCount, 20)
+	assert.Equal(suite.T(), 10, len(getBeneficiariesResponse.Data))
+	assert.Equal(suite.T(), 20, getBeneficiariesResponse.Metadata.TotalCount)
 }
 
 func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByName() {
@@ -95,8 +95,8 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByName() {
 	}
 
 	assert.Equal(suite.T(), fiber.StatusOK, resp.StatusCode)
-	assert.Equal(suite.T(), getBeneficiariesResponse.Metadata.TotalCount, 1)
-	assert.Equal(suite.T(), getBeneficiariesResponse.Data[0].DocumentNumber, "258147369")
+	assert.Equal(suite.T(), 1, getBeneficiariesResponse.Metadata.TotalCount)
+	assert.Equal(suite.T(), "258147369", getBeneficiariesResponse.Data[0].DocumentNumber)
 }
 
 func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByPixKeyType() {
@@ -115,8 +115,8 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByPixKeyType(
 	}
 
 	assert.Equal(suite.T(), fiber.StatusOK, resp.StatusCode)
-	assert.Equal(suite.T(), len(getBeneficiariesResponse.Data), 9)
-	assert.Equal(suite.T(), getBeneficiariesResponse.Metadata.TotalCount, 9)
+	assert.Equal(suite.T(), 9, len(getBeneficiariesResponse.Data))
+	assert.Equal(suite.T(), 9, getBeneficiariesResponse.Metadata.TotalCount)
 }
 
 func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByPixKeyValue() {
@@ -135,8 +135,8 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByPixKeyValue
 	}
 
 	assert.Equal(suite.T(), fiber.StatusOK, resp.StatusCode)
-	assert.Equal(suite.T(), getBeneficiariesResponse.Metadata.TotalCount, 1)
-	assert.Equal(suite.T(), getBeneficiariesResponse.Data[0].DocumentNumber, "456789123")
+	assert.Equal(suite.T(), 1, getBeneficiariesResponse.Metadata.TotalCount)
+	assert.Equal(suite.T(), "456789123", getBeneficiariesResponse.Data[0].DocumentNumber)
 }
 
 func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_NonExistingPage() {
@@ -155,8 +155,8 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_NonExistingPage() {
 	}
 
 	assert.Equal(suite.T(), fiber.StatusBadRequest, resp.StatusCode)
-	assert.Equal(suite.T(), errResp.Status, response.StatusInvalidInput)
-	assert.Equal(suite.T(), errResp.Error, "The requested page does not exist.")
+	assert.Equal(suite.T(), response.StatusInvalidInput, errResp.Status)
+	assert.Equal(suite.T(), "The requested page does not exist.", errResp.Error)
 }
 
 func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_ServiceFails() {
@@ -177,8 +177,8 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_ServiceFails() {
 	}
 
 	assert.Equal(suite.T(), fiber.StatusUnprocessableEntity, resp.StatusCode)
-	assert.Equal(suite.T(), errResp.Status, response.StatusError)
-	assert.Equal(suite.T(), errResp.Error, "some error")
+	assert.Equal(suite.T(), response.StatusError, errResp.Status)
+	assert.Equal(suite.T(), "some error", errResp.Error)
 }
 
 func TestGetBeneficiariesTestSuite(t *testing.T) {

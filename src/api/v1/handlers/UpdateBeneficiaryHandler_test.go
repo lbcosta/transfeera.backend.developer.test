@@ -85,7 +85,7 @@ func (suite *UpdateBeneficiaryTestSuite) TestUpdateBeneficiary_Success() {
 	suite.domainBeneficiary.Email = email
 
 	assert.Equal(suite.T(), fiber.StatusOK, resp.StatusCode)
-	assert.Equal(suite.T(), &updatedBeneficiary, suite.domainBeneficiary)
+	assert.Equal(suite.T(), suite.domainBeneficiary, &updatedBeneficiary)
 }
 
 func (suite *UpdateBeneficiaryTestSuite) TestUpdateBeneficiary_StatusValidadoCanOnlyEditEmail() {

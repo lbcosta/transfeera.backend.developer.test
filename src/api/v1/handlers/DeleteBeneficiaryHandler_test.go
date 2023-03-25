@@ -100,8 +100,8 @@ func (suite *DeleteBeneficiaryTestSuite) TestDeleteBeneficiaries_NotFound() {
 	}
 
 	assert.Equal(suite.T(), fiber.StatusUnprocessableEntity, resp.StatusCode)
-	assert.Equal(suite.T(), errResp.Status, response.StatusError)
-	assert.Equal(suite.T(), errResp.Error, "resource not found")
+	assert.Equal(suite.T(), response.StatusError, errResp.Status)
+	assert.Equal(suite.T(), "resource not found", errResp.Error)
 }
 
 func TestDeleteBeneficiaryTestSuite(t *testing.T) {

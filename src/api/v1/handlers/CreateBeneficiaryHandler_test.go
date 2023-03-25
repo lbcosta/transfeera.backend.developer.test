@@ -85,8 +85,8 @@ func (suite *CreateBeneficiaryTestSuite) TestCreateBeneficiaries_Success() {
 	}
 
 	assert.Equal(suite.T(), fiber.StatusOK, resp.StatusCode)
-	assert.Equal(suite.T(), &createdBeneficiary, suite.domainBeneficiary)
-	assert.Equal(suite.T(), createdBeneficiary.Status, domain.StatusRascunho)
+	assert.Equal(suite.T(), suite.domainBeneficiary, &createdBeneficiary)
+	assert.Equal(suite.T(), domain.StatusRascunho, createdBeneficiary.Status)
 }
 
 func (suite *CreateBeneficiaryTestSuite) TestCreateBeneficiaries_InvalidPixType() {
@@ -119,8 +119,8 @@ func (suite *CreateBeneficiaryTestSuite) TestCreateBeneficiaries_InvalidPixType(
 	}
 
 	assert.Equal(suite.T(), fiber.StatusBadRequest, resp.StatusCode)
-	assert.Equal(suite.T(), errResp.Status, response.StatusInvalidInput)
-	assert.Equal(suite.T(), errResp.Error, "error on the following fields: PixKeyType, PixKeyValue")
+	assert.Equal(suite.T(), response.StatusInvalidInput, errResp.Status)
+	assert.Equal(suite.T(), "error on the following fields: PixKeyType, PixKeyValue", errResp.Error)
 }
 
 func (suite *CreateBeneficiaryTestSuite) TestCreateBeneficiaries_InvalidPixValue() {
@@ -153,8 +153,8 @@ func (suite *CreateBeneficiaryTestSuite) TestCreateBeneficiaries_InvalidPixValue
 	}
 
 	assert.Equal(suite.T(), fiber.StatusBadRequest, resp.StatusCode)
-	assert.Equal(suite.T(), errResp.Status, response.StatusInvalidInput)
-	assert.Equal(suite.T(), errResp.Error, "error on the following fields: PixKeyValue")
+	assert.Equal(suite.T(), response.StatusInvalidInput, errResp.Status)
+	assert.Equal(suite.T(), "error on the following fields: PixKeyValue", errResp.Error)
 }
 
 func (suite *CreateBeneficiaryTestSuite) TestCreateBeneficiaries_InvalidEmail() {
@@ -187,8 +187,8 @@ func (suite *CreateBeneficiaryTestSuite) TestCreateBeneficiaries_InvalidEmail() 
 	}
 
 	assert.Equal(suite.T(), fiber.StatusBadRequest, resp.StatusCode)
-	assert.Equal(suite.T(), errResp.Status, response.StatusInvalidInput)
-	assert.Equal(suite.T(), errResp.Error, "error on the following fields: Email")
+	assert.Equal(suite.T(), response.StatusInvalidInput, errResp.Status)
+	assert.Equal(suite.T(), "error on the following fields: Email", errResp.Error)
 }
 
 func (suite *CreateBeneficiaryTestSuite) TestCreateBeneficiaries_ServiceFails() {
@@ -223,8 +223,8 @@ func (suite *CreateBeneficiaryTestSuite) TestCreateBeneficiaries_ServiceFails() 
 	}
 
 	assert.Equal(suite.T(), fiber.StatusUnprocessableEntity, resp.StatusCode)
-	assert.Equal(suite.T(), errResp.Status, response.StatusError)
-	assert.Equal(suite.T(), errResp.Error, "some error")
+	assert.Equal(suite.T(), response.StatusError, errResp.Status)
+	assert.Equal(suite.T(), "some error", errResp.Error)
 }
 
 func TestCreateBeneficiaryTestSuite(t *testing.T) {

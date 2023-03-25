@@ -30,7 +30,7 @@ func (suite *DeleteBeneficiariesTestSuite) TestDeleteBeneficiaries_Success() {
 	assert.NoError(suite.T(), err)
 }
 
-func (suite *DeleteBeneficiariesTestSuite) TestGetBeneficiaries_Error() {
+func (suite *DeleteBeneficiariesTestSuite) TestDeleteBeneficiaries_Error() {
 	ids := []uint{1, 2, 3}
 	suite.beneficiaryRepository.On("Delete", ids).Return(suite.SomeError)
 

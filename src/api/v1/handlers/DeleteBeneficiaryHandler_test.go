@@ -45,19 +45,6 @@ func (suite *DeleteBeneficiaryTestSuite) SetupTest() {
 	suite.PostgresDatabase = postgresDatabase
 	suite.mockedBeneficiaryRepository = mockedBeneficiaryRepository
 	suite.SomeError = errors.New("some error")
-	//suite.domainBeneficiary = &domain.Beneficiary{
-	//	Status:         "Rascunho",
-	//	Name:           "Leonardo Costa",
-	//	DocumentNumber: "04788380340",
-	//	Email:          "lbcosta.dev@gmail.com",
-	//	PixKeyType:     "EMAIL",
-	//	PixKeyValue:    "lbcosta.dev@gmail.com",
-	//	BankInfo: domain.BankInfo{
-	//		Bank:    "TransfeeraBank",
-	//		Agency:  "1234-5",
-	//		Account: "987654-3",
-	//	},
-	//}
 }
 
 func (suite *DeleteBeneficiaryTestSuite) TestDeleteBeneficiaries_Success() {

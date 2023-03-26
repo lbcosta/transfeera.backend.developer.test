@@ -14,10 +14,10 @@ import (
 const ResourceNotFoundErr = "resource not found"
 
 type GormBeneficiaryRepository struct {
-	databaseConnection config.PostgresDatabase
+	databaseConnection config.Database
 }
 
-func NewBeneficiaryRepository(databaseConnection config.PostgresDatabase) repositories.BeneficiaryRepository {
+func NewBeneficiaryRepository(databaseConnection config.Database) repositories.BeneficiaryRepository {
 	return GormBeneficiaryRepository{databaseConnection: databaseConnection}
 }
 

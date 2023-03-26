@@ -27,10 +27,10 @@ func (b Beneficiary) IsPixValid() bool {
 
 func (b Beneficiary) ShouldUpdate(name, documentNumber, pixKeyType, pixKeyValue string) bool {
 	return !(b.Status == domain.StatusValidado &&
-		(name != b.Name ||
-			documentNumber != b.DocumentNumber ||
-			pixKeyType != b.PixKeyType ||
-			pixKeyValue != b.PixKeyValue))
+		(name != "" && (name != b.Name) ||
+			(documentNumber != "" && documentNumber != b.DocumentNumber) ||
+			(pixKeyType != "" && pixKeyType != b.PixKeyType) ||
+			(pixKeyValue != "" && pixKeyValue != b.PixKeyValue)))
 }
 
 func (b Beneficiary) ToDomain() domain.Beneficiary {

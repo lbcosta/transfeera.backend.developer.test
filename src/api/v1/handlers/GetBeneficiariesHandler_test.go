@@ -27,7 +27,7 @@ type GetBeneficiariesTestSuite struct {
 func (suite *GetBeneficiariesTestSuite) SetupTest() {
 	mockedBeneficiaryRepository := new(mocks.BeneficiaryRepository)
 
-	getBeneficiariesHandler := NewGetBeneficiariesHandler(services.NewGetBeneficiariesService(repositories.NewBeneficiaryRepository(config.NewPostgresDatabase())))
+	getBeneficiariesHandler := NewGetBeneficiariesHandler(services.NewGetBeneficiariesService(repositories.NewBeneficiaryRepository(config.NewTestDatabase())))
 	mockedGetBeneficiariesHandler := NewGetBeneficiariesHandler(services.NewGetBeneficiariesService(mockedBeneficiaryRepository))
 
 	app := fiber.New()
@@ -37,6 +37,10 @@ func (suite *GetBeneficiariesTestSuite) SetupTest() {
 	suite.App = app
 	suite.beneficiaryRepository = mockedBeneficiaryRepository
 	suite.SomeError = errors.New("some error")
+}
+
+func (suite *GetBeneficiariesTestSuite) TearDownTest() {
+	config.Destroy()
 }
 
 func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_Success() {
@@ -55,7 +59,7 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_Success() {
 	}
 
 	assert.Equal(suite.T(), fiber.StatusOK, resp.StatusCode)
-	assert.Equal(suite.T(), 37, getBeneficiariesResponse.Metadata.TotalCount)
+	assert.Equal(suite.T(), 38, getBeneficiariesResponse.Metadata.TotalCount)
 	assert.Equal(suite.T(), 4, getBeneficiariesResponse.Metadata.TotalPages)
 }
 
@@ -76,7 +80,7 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByStatus() {
 
 	assert.Equal(suite.T(), fiber.StatusOK, resp.StatusCode)
 	assert.Equal(suite.T(), 10, len(getBeneficiariesResponse.Data))
-	assert.Equal(suite.T(), 20, getBeneficiariesResponse.Metadata.TotalCount)
+	assert.Equal(suite.T(), 21, getBeneficiariesResponse.Metadata.TotalCount)
 }
 
 func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByName() {
@@ -96,7 +100,7 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByName() {
 
 	assert.Equal(suite.T(), fiber.StatusOK, resp.StatusCode)
 	assert.Equal(suite.T(), 1, getBeneficiariesResponse.Metadata.TotalCount)
-	assert.Equal(suite.T(), "258147369", getBeneficiariesResponse.Data[0].DocumentNumber)
+	assert.Equal(suite.T(), "25814736940", getBeneficiariesResponse.Data[0].DocumentNumber)
 }
 
 func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByPixKeyType() {
@@ -120,7 +124,7 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByPixKeyType(
 }
 
 func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByPixKeyValue() {
-	req := httptest.NewRequest("GET", "/?filter=bobsmith@example.com", nil)
+	req := httptest.NewRequest("GET", "/?filter=45678912307", nil)
 
 	resp, err := suite.App.Test(req, -1)
 	if err != nil {
@@ -136,7 +140,7 @@ func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_SearchByPixKeyValue
 
 	assert.Equal(suite.T(), fiber.StatusOK, resp.StatusCode)
 	assert.Equal(suite.T(), 1, getBeneficiariesResponse.Metadata.TotalCount)
-	assert.Equal(suite.T(), "456789123", getBeneficiariesResponse.Data[0].DocumentNumber)
+	assert.Equal(suite.T(), "45678912307", getBeneficiariesResponse.Data[0].DocumentNumber)
 }
 
 func (suite *GetBeneficiariesTestSuite) TestGetBeneficiaries_NonExistingPage() {

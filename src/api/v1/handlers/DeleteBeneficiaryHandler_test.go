@@ -24,24 +24,28 @@ type DeleteBeneficiaryTestSuite struct {
 	suite.Suite
 	SomeError         error
 	App               *fiber.App
-	PostgresDatabase  config.PostgresDatabase
+	TestDatabase      config.Database
 	domainBeneficiary *domain.Beneficiary
 }
 
 func (suite *DeleteBeneficiaryTestSuite) SetupTest() {
-	postgresDatabase := config.NewPostgresDatabase()
-	deleteBeneficiaryHandler := NewDeleteBeneficiariesHandler(services.NewDeleteBeneficiariesService(repositories.NewBeneficiaryRepository(postgresDatabase)))
+	testDatabase := config.NewTestDatabase()
+	deleteBeneficiaryHandler := NewDeleteBeneficiariesHandler(services.NewDeleteBeneficiariesService(repositories.NewBeneficiaryRepository(testDatabase)))
 
 	app := fiber.New()
 	app.Delete("/", deleteBeneficiaryHandler.Handle)
 
 	suite.App = app
-	suite.PostgresDatabase = postgresDatabase
+	suite.TestDatabase = testDatabase
 	suite.SomeError = errors.New("some error")
 }
 
+func (suite *DeleteBeneficiaryTestSuite) TearDownTest() {
+	config.Destroy()
+}
+
 func (suite *DeleteBeneficiaryTestSuite) TestDeleteBeneficiaries_Success() {
-	const Id = 37
+	const Id = 1
 
 	reqBody := request.DeleteBeneficiariesRequest{
 		Ids: []uint{Id},
@@ -60,11 +64,11 @@ func (suite *DeleteBeneficiaryTestSuite) TestDeleteBeneficiaries_Success() {
 		suite.T().Fatalf("Failed to test: %s", err)
 	}
 
-	db, err := suite.PostgresDatabase.Connect()
+	db, err := suite.TestDatabase.Connect()
 	if err != nil {
 		suite.T().Fatalf("Failed to test: %s", err)
 	}
-	defer suite.PostgresDatabase.Disconnect(db)
+	defer suite.TestDatabase.Disconnect(db)
 
 	var beneficiary model.Beneficiary
 	err = db.First(&beneficiary, Id).Error

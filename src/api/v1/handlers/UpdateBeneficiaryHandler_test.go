@@ -30,7 +30,7 @@ type UpdateBeneficiaryTestSuite struct {
 func (suite *UpdateBeneficiaryTestSuite) SetupTest() {
 	mockedBeneficiaryRepository := new(mocks.BeneficiaryRepository)
 
-	updateBeneficiaryHandler := NewUpdateBeneficiaryHandler(services.NewUpdateBeneficiaryService(repositories.NewBeneficiaryRepository(config.NewPostgresDatabase())))
+	updateBeneficiaryHandler := NewUpdateBeneficiaryHandler(services.NewUpdateBeneficiaryService(repositories.NewBeneficiaryRepository(config.NewTestDatabase())))
 	mockedUpdateBeneficiariesHandler := NewUpdateBeneficiaryHandler(services.NewUpdateBeneficiaryService(mockedBeneficiaryRepository))
 
 	app := fiber.New()
@@ -41,23 +41,27 @@ func (suite *UpdateBeneficiaryTestSuite) SetupTest() {
 	suite.mockedBeneficiaryRepository = mockedBeneficiaryRepository
 	suite.SomeError = errors.New("some error")
 	suite.domainBeneficiary = &domain.Beneficiary{
-		Status:         "Rascunho",
-		Name:           "Leonardo Costa",
-		DocumentNumber: "04788380340",
-		Email:          "lbcosta.dev@gmail.com",
-		PixKeyType:     "EMAIL",
-		PixKeyValue:    "lbcosta.dev@gmail.com",
+		Status:         "Validado",
+		Name:           "John Doe",
+		DocumentNumber: "12345678907",
+		Email:          "johndoe@example.com",
+		PixKeyType:     "CPF",
+		PixKeyValue:    "12345678907",
 		BankInfo: domain.BankInfo{
-			Bank:    "TransfeeraBank",
-			Agency:  "1234-5",
-			Account: "987654-3",
+			Bank:    "ABC Bank",
+			Agency:  "1234",
+			Account: "56789",
 		},
 	}
 }
 
+func (suite *UpdateBeneficiaryTestSuite) TearDownTest() {
+	config.Destroy()
+}
+
 func (suite *UpdateBeneficiaryTestSuite) TestUpdateBeneficiary_Success() {
-	const Id = "56"
-	const email = "leocosta@gmail.com"
+	const Id = "1"
+	const email = "johndoe@gmail.com"
 	reqBody := request.UpdateBeneficiaryRequest{
 		Email: email,
 	}
@@ -89,9 +93,9 @@ func (suite *UpdateBeneficiaryTestSuite) TestUpdateBeneficiary_Success() {
 }
 
 func (suite *UpdateBeneficiaryTestSuite) TestUpdateBeneficiary_StatusValidadoCanOnlyEditEmail() {
-	const Id = "55"
+	const Id = "1"
 	reqBody := request.UpdateBeneficiaryRequest{
-		PixKeyValue: "leocosta@chavepix.com",
+		PixKeyValue: "12345678902",
 	}
 
 	reqBodyJSON, err := json.Marshal(reqBody)

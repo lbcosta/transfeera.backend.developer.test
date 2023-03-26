@@ -29,9 +29,9 @@ type CreateBeneficiaryTestSuite struct {
 
 func (suite *CreateBeneficiaryTestSuite) SetupTest() {
 	mockedBeneficiaryRepository := new(mocks.BeneficiaryRepository)
-
-	createBeneficiaryHandler := NewCreateBeneficiaryHandler(services.NewCreateBeneficiaryService(repositories.NewBeneficiaryRepository(config.NewPostgresDatabase())), services.NewGetBankInfoService())
 	mockedCreateBeneficiariesHandler := NewCreateBeneficiaryHandler(services.NewCreateBeneficiaryService(mockedBeneficiaryRepository), services.NewGetBankInfoService())
+
+	createBeneficiaryHandler := NewCreateBeneficiaryHandler(services.NewCreateBeneficiaryService(repositories.NewBeneficiaryRepository(config.NewTestDatabase())), services.NewGetBankInfoService())
 
 	app := fiber.New()
 	app.Post("/", createBeneficiaryHandler.Handle)
@@ -53,6 +53,10 @@ func (suite *CreateBeneficiaryTestSuite) SetupTest() {
 			Account: "987654-3",
 		},
 	}
+}
+
+func (suite *CreateBeneficiaryTestSuite) TearDownTest() {
+	config.Destroy()
 }
 
 func (suite *CreateBeneficiaryTestSuite) TestCreateBeneficiaries_Success() {

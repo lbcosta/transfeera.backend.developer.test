@@ -8,7 +8,7 @@
   Esta é uma API feita em <a href="https://go.dev/">Go</a> como teste técnico para a posição de Backend Pleno na <a href="https://transfeera.com/">Transfeera</a>. A aplicação usa <a href="https://www.postgresql.org/">Postgresql</a> como banco de dados, testes unitários e de integração usando a biblioteca <a href="https://github.com/stretchr/testify">Testify</a>, containerização com <a href="https://www.docker.com/">Docker</a> e possui instruções de instalação, configuração e execução do projeto, além da documentação da API logo abaixo.
 </p>
 
-## ⚙️ Instalação
+# ⚙️ Instalação
 
 **É necessário ter Go, Docker e Docker Compose instalados na sua máquina.**
 
@@ -29,7 +29,7 @@ POSTGRES_PASSWORD=transfeera.t3st
 POSTGRES_DB=transfeera
 ```
 
-## ⚡️ Inicialização
+# ⚡️ Inicialização
 
 **Opção 1**
 
@@ -49,7 +49,7 @@ Para inicializar apenas os containers da aplicação _(e não rodar os testes)_,
 docker-compose up --build -d
 ```
 
-## 🌱 Seeding
+# 🌱 Seeding
 
 Para popular o banco de dados que foi inicializado com a aplicação, basta rodar o seguinte script:
 
@@ -59,21 +59,21 @@ go run scripts/seed.go
 
 > ⚠️ Provavelmente o terminal usado para subir a aplicação estará travado. Então é necessário abrir outro terminal para executar o script acima.
 
-## 📃 Documentação da API
+# 📃 Documentação da API
 
-### 🔗 Endpoints
+## 🔗 Endpoints
 
-#### 🔍 Listagem de Recebedores
+### 🔍 Listagem de Recebedores
 
-**URL**: `/api/v1/beneficiaries[?filter=X][&page=Y]`
-**Paramêtros**: `filter` - Filtro de busca, que pode ser um valor de _Status_ ("Rascunho" ou "Validado"), _Nome_, _Tipo de Chave PIX_ ("cpf", "cnpj", "email", "telefone", "chave*aleatoria") ou o \_Valor da chave PIX*
-**Method**: GET
-**Request Body**: _Sem request_
-**Response**: Objeto JSON contendo metadados sobre a busca e os dados buscados
+**URL**: `/api/v1/beneficiaries[?filter=X][&page=Y]` <br>
+**Paramêtros**: `filter` - Filtro de busca, que pode ser um valor de _Status_ ("Rascunho" ou "Validado"), _Nome_, _Tipo de Chave PIX_ ("cpf", "cnpj", "email", "telefone", "chave\*aleatoria") ou o _Valor da chave PIX_ <br>
+**Method**: GET<br>
+**Request Body**: _Sem request_ <br>
+**Response**: Objeto JSON contendo metadados sobre a busca e os dados buscados<br>
 
 Exemplo de **Response**:
 
-<p style="font-weight:bold;color:green">Status 200</p>
+<img src="https://img.shields.io/badge/Status-200-green">
 
 ```json
 {
@@ -115,22 +115,22 @@ Exemplo de **Response**:
 
 Exemplos de possíveis **Erros**:
 
-<p style="font-weight:bold;color:red">Status 400</p>
+<img src="https://img.shields.io/badge/Status-400-red">
+
 ```json
-// Página buscada não existe.
 {
-    "status": "invalid_input",
-    "code": 400,
-    "error": "The requested page does not exist."
+  "status": "invalid_input",
+  "code": 400,
+  "error": "The requested page does not exist."
 }
 ```
 
-#### ✏️ Criação de Novo Recebedor
+### ✏️ Criação de Novo Recebedor
 
-**URL**: `/api/v1/beneficiaries`
-**Method**: POST
-**Request Body**: Objeto JSON com informações do Recebedor
-**Response**: Objeto criado
+**URL**: `/api/v1/beneficiaries` <br>
+**Method**: POST<br>
+**Request Body**: Objeto JSON com informações do Recebedor<br>
+**Response**: Objeto criado<br>
 
 Exemplo de **Request Body**:
 
@@ -146,7 +146,7 @@ Exemplo de **Request Body**:
 
 Exemplo de **Response**:
 
-<p style="font-weight:bold;color:green">Status 200</p>
+<img src="https://img.shields.io/badge/Status-200-green">
 
 ```json
 {
@@ -164,50 +164,23 @@ Exemplo de **Response**:
 
 Exemplos de possíveis **Erros**:
 
-<p style="font-weight:bold;color:red">Status 400</p>
-```json
-// Email inválido.
-{
-    "status": "invalid_input",
-    "code": 400,
-    "error": "error on the following fields: Email"
-}
-```
-
-#### 🗑️ Exclusão de Recebedores
-
-**URL**: `/api/v1/beneficiaries`
-**Method**: DELETE
-**Request Body**: Objeto JSON com uma lista dos IDs dos recebedores a serem excluídos
-**Response**: _Sem response_
-
-Exemplo de **Request Body**
+<img src="https://img.shields.io/badge/Status-400-red">
 
 ```json
 {
-  "ids": [2, 3, 8, 12, 27]
+  "status": "invalid_input",
+  "code": 400,
+  "error": "error on the following fields: Email"
 }
 ```
 
-Exemplos de possíveis **Erros**:
+### 🔄 Edição de Recebedores
 
-<p style="font-weight:bold;color:red">Status 422</p>
-```json
-// Nenhum ID passado no request foi encontrado.
-{
-    "status": "error",
-    "code": 422,
-    "error": "resource not found"
-}
-```
-
-#### 🔄 Edição de Recebedores
-
-**URL**: `/api/v1/beneficiaries/:id`
-**Paramêtros**: `id` - Id do recebedor a ser editado
-**Method**: PATCH
-**Request Body**: Objeto JSON com as informações a serem editadas
-**Response**: Objeto após ser editado
+**URL**: `/api/v1/beneficiaries/:id` <br>
+**Paramêtros**: `id` - Id do recebedor a ser editado<br>
+**Method**: PATCH<br>
+**Request Body**: Objeto JSON com as informações a serem editadas<br>
+**Response**: Objeto após ser editado<br>
 
 Exemplo de **Request Body**:
 
@@ -220,7 +193,7 @@ Exemplo de **Request Body**:
 
 Exemplo de **Response**:
 
-<p style="font-weight:bold;color:green">Status 200</p>
+<img src="https://img.shields.io/badge/Status-200-green">
 
 ```json
 {
@@ -238,23 +211,52 @@ Exemplo de **Response**:
 
 Exemplos de possíveis **Erros**:
 
-<p style="font-weight:bold;color:red">Status 422</p>
+<img src="https://img.shields.io/badge/Status-422-red">
+
 ```json
-// Id passado como paramêtro é inválido
 {
-    "status": "error",
-    "code": 422,
-    "error": "record not found"
-}
-```
-<p style="font-weight:bold;color:red">Status 422</p>
-```json
-// Beneficiários com Status "Validado" só podem ter o email alterado.
-{
-    "status": "error",
-    "code": 422,
-    "error": "beneficiaries with Status=Validado should not update some fields"
+  "status": "error",
+  "code": 422,
+  "error": "record not found"
 }
 ```
 
-## 🧠 Motivações para decisões técnicas
+<img src="https://img.shields.io/badge/Status-422-red">
+
+```json
+{
+  "status": "error",
+  "code": 422,
+  "error": "beneficiaries with Status=Validado should not update some fields"
+}
+```
+
+### 🗑️ Exclusão de Recebedores
+
+**URL**: `/api/v1/beneficiaries` <br>
+
+**Method**: DELETE <br>
+
+**Request Body**: Objeto JSON com uma lista dos IDs dos recebedores a serem excluídos <br>
+
+**Response**: _Sem response - Status 204: No Content_ <br>
+
+Exemplo de **Request Body**
+
+```json
+{
+  "ids": [2, 3, 8, 12, 27]
+}
+```
+
+Exemplos de possíveis **Erros**:
+
+<img src="https://img.shields.io/badge/Status-422-red">
+
+```json
+{
+  "status": "error",
+  "code": 422,
+  "error": "resource not found"
+}
+```

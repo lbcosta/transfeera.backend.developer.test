@@ -1,11 +1,34 @@
 <p align="center">
-  <a href="https://gofiber.io">
-    <img alt="Fiber" height="125" src=".github/logo.svg">
+  <a href="https://github.com/lbcosta/transfeera.backend.developer.test">
+    <img alt="Transfeera Backend Challenge" height="125" src=".github/logo.svg">
   </a>
   <br>
 </p>
+
+<div align="center">
+<a href="https://github.com/Azure/gocover">
+  <img src="https://img.shields.io/badge/%F0%9F%94%8Egocover-88.9%25-green">
+</a>
+<a href="https://github.com/securego/gosec">
+  <img src="https://img.shields.io/badge/%F0%9F%94%91gosec-passing-green">
+</a>
+<a href="#%EF%B8%8F-inicialização">
+  <img src="https://img.shields.io/badge/%F0%9F%A7%AA%20tests-passing-green">
+</a>
+  <a href="#-documentação-da-api">
+  <img src="https://img.shields.io/badge/%F0%9F%93%83%20API-docs-informational">
+</a>
+</div>
+<br>
 <p align="center">
   Esta é uma API feita em <a href="https://go.dev/">Go</a> como teste técnico para a posição de Backend Pleno na <a href="https://transfeera.com/">Transfeera</a>. A aplicação usa <a href="https://www.postgresql.org/">Postgresql</a> como banco de dados, testes unitários e de integração usando a biblioteca <a href="https://github.com/stretchr/testify">Testify</a>, containerização com <a href="https://www.docker.com/">Docker</a> e possui instruções de instalação, configuração e execução do projeto, além da documentação da API logo abaixo.
+</p>
+
+<p align="center">
+  <a href="#%EF%B8%8F-instalação">Instalação</a> •
+  <a href="#%EF%B8%8F-inicialização">Inicialização</a> •
+  <a href="#-seeding">Seeding</a> •
+  <a href="#-documentação-da-api">Documentação da API</a>
 </p>
 
 # ⚙️ Instalação
@@ -66,7 +89,7 @@ go run scripts/seed.go
 ### 🔍 Listagem de Recebedores
 
 **URL**: `/api/v1/beneficiaries[?filter=X][&page=Y]` <br>
-**Paramêtros**: `filter` - Filtro de busca, que pode ser um valor de _Status_ ("Rascunho" ou "Validado"), _Nome_, _Tipo de Chave PIX_ ("cpf", "cnpj", "email", "telefone", "chave\*aleatoria") ou o _Valor da chave PIX_ <br>
+**Paramêtros**: `filter` - Filtro de busca, que pode ser um valor de _Status_ ("Rascunho" ou "Validado"), _Nome_, _Tipo de Chave PIX_ ("cpf", "cnpj", "email", "telefone", "chave\*aleatoria") ou o _Valor da chave PIX_ **|** `page` - Página da lista <br>
 **Method**: GET<br>
 **Request Body**: _Sem request_ <br>
 **Response**: Objeto JSON contendo metadados sobre a busca e os dados buscados<br>

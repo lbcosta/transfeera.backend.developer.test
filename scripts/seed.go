@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
@@ -10,12 +11,17 @@ import (
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	dsn := fmt.Sprintf(
 		"user=%s password=%s dbname=%s host=%s port=%s timezone=%s",
 		os.Getenv("POSTGRES_USER"),
 		os.Getenv("POSTGRES_PASSWORD"),
 		os.Getenv("POSTGRES_DB"),
-		os.Getenv("POSTGRES_HOST"),
+		os.Getenv("POSTGRES_HOST_SEED"),
 		os.Getenv("POSTGRES_PORT"),
 		"America/Sao_Paulo")
 

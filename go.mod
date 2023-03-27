@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/go-playground/validator/v10 v10.12.0
 	github.com/gofiber/fiber/v2 v2.42.0
+	github.com/joho/godotenv v1.5.1
 	github.com/stretchr/testify v1.8.2
 	go.uber.org/fx v1.19.2
 	gorm.io/driver/postgres v1.5.0

@@ -3,10 +3,8 @@ services:
   db:
     image: postgres
     restart: always
-    environment:
-      - POSTGRES_USER=transfeera
-      - POSTGRES_PASSWORD=transfeera.t3st
-      - POSTGRES_DB=transfeera
+    env_file:
+      - .env
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:

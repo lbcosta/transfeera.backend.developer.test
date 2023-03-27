@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"transfeera.backend.developer.test/src/api/v1/handlers"
 )
@@ -21,6 +22,9 @@ func (r Router) Start(port string) error {
 	app := fiber.New()
 
 	app.Use(recover.New())
+	app.Use(logger.New(logger.Config{
+		Format: "[${ip}]:${port} ${status} - ${method} ${path}\n",
+	}))
 
 	v1 := app.Group("api/v1/beneficiaries")
 	v1.Get("/", r.GetBeneficiaries.Handle)

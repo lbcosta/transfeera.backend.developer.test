@@ -57,5 +57,5 @@ func (h CreateBeneficiaryHandler) Handle(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(errorResponse)
 	}
 
-	return c.JSON(beneficiary)
+	return c.Status(fiber.StatusCreated).JSON(beneficiary)
 }
